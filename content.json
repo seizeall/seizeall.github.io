@@ -2,10 +2,10 @@
   "site": {
     "name": "Rongtao Chen",
     "name_cjk": "陈荣滔",
-    "title": "Rongtao Chen · Affective Computing & Multimodal Reasoning",
-    "description": "Rongtao Chen — M.S. student at the School of Cyber Science and Engineering, Southeast University. Research on affective computing, EEG-based emotion recognition, cross-subject transfer and multimodal reasoning.",
+    "title": "Explore uncharted territories",
+    "description": "Rongtao Chen",
     "url": "https://seizeall.github.io/",
-    "email": "rongtao.chen@seu.edu.cn",
+    "email": "seizepluss@gmail.com",
     "scholar": "https://scholar.google.com/citations?user=KTdaZuUAAAAJ",
     "github": "https://github.com/seizeall",
     "university": "Southeast University",
@@ -13,7 +13,7 @@
   },
   "hero": {
     "eyebrow": "M.S. Student · Southeast University",
-    "lede": "I study how machines come to **feel** — teaching models to infer emotional and cognitive states from physiological signals, and to reason across modalities rather than fire off a single label.",
+    "lede": "I am collaborating with numerous like-minded peers to investigate the upper bound of intelligence. Concurrently, I have a strong research interest in foundational data construction and model evaluation, which I regard as the basis for intelligence development and the cornerstone underlying its upper bound.",
     "location": "Nanjing, China",
     "stats": [
       {
@@ -22,7 +22,7 @@
       },
       {
         "label": "Publications",
-        "value": 8
+        "value": 6
       },
       {
         "label": "h-index",
@@ -36,11 +36,9 @@
   },
   "about": {
     "kicker": "01 — About",
-    "heading": "A little context",
+    "heading": "Personal Resume",
     "paragraphs": [
-      "I am a master's student at the **School of Cyber Science and Engineering, Southeast University**. My work sits between **affective computing** and **multimodal learning**: getting a model to read the emotional and cognitive state of a person from signals that were never designed to be read.",
-      "Most of my published work is on **cross-subject and cross-dataset EEG emotion recognition**. The hard part is not fitting one person's brainwaves — it is making a model trained on a handful of subjects behave sensibly on someone it has never met, recorded on hardware it has never seen. I approach that with graph-based domain adaptation: align distributions across people and sessions, and let the electrode topology do some of the regularisation for you.",
-      "I am currently extending this line toward **multimodal reasoning**, where language, vision and physiological streams are used jointly to infer affect and intent instead of collapsing everything into one label."
+      "I am an incoming M.S. student in the School of Cyber Science and Engineering at Southeast University. I received my undergraduate training at the School of Artificial Intelligence, South China Normal University, under the supervision of Prof. Jiahui Pan. My research interests include multimodal reasoning, affective computing, foundational data construction, and model evaluation. I aim to conduct further meaningful research and welcome collaborations with interested researchers."
     ],
     "glance": [
       {
@@ -61,7 +59,7 @@
       },
       {
         "key": "Focus",
-        "value": "Affective computing · Multimodal reasoning"
+        "value": "Multimodal Reasoning · Affective Computing · Foundational Data Construction, and Model Evaluation"
       }
     ],
     "glance_link": {
@@ -72,27 +70,24 @@
   "research": {
     "kicker": "02 — Research",
     "heading": "What I work on",
-    "sub": "Two directions I keep coming back to — reading affect from signals that were never designed to be read, and reasoning across modalities about why a state holds.",
+    "sub": "My research focuses on four areas: Multimodal Reasoning · Affective Computing · Foundational Data Construction, and Model Evaluation. I am dedicated to probing the upper bound of intelligence through multimodal reasoning. Although it is often regarded as a plug-in, I intend to drive iterative model refinement through large-scale data and model evaluation. Furthermore, motivated by personal interest, I will investigate downstream applications of multimodal large models / large models in affective computing.",
     "items": [
       {
         "icon": "graph",
         "title": "Multimodal Reasoning",
-        "text": "Joint inference over language, vision and physiology. Rather than a single fused classifier, I am interested in models that reason about *why* a state holds and can be asked follow-up questions about it.",
+        "text": "Joint inference over language, vision, and other modalities. Rather than a single fused classifier, I am interested in general-purpose multimodal large language models (MLLMs) that can reason about why a state holds and answer follow-up questions about it.",
         "tags": [
-          "LLM reasoning",
-          "Fusion",
-          "Interpretability"
+          "MLLM reasoning"
         ],
         "feature": true
       },
       {
         "icon": "wave",
         "title": "Affective Computing",
-        "text": "Estimating emotional and cognitive states from physiological signals — EEG first, with peripheral signals as a complement. The goal is a reading that is stable enough to trust outside the lab.",
+        "text": "Estimating emotional and cognitive states from physiological signals as part of a general-purpose world model. The goal is a model whose state estimates are stable enough to trust outside the lab.",
         "tags": [
-          "EEG",
-          "Emotion",
-          "Consciousness"
+          "Social Computing",
+          "Emotion"
         ],
         "feature": true
       }
@@ -104,11 +99,7 @@
     "items": [
       {
         "when": "2026",
-        "text": "Two papers accepted to **IEEE Transactions on Affective Computing** — on multi-scale temporal modelling and cross-dataset graph alignment."
-      },
-      {
-        "when": "2026",
-        "text": "*MLDA-STG* and *EmoVAE* appear at the **Annual Meeting of the Cognitive Science Society**."
+        "text": "Two papers accepted to **IEEE Transactions on Affective Computing** "
       },
       {
         "when": "2026",
@@ -137,7 +128,7 @@
         "type": "journal",
         "title": "A Progressive Multi-Domain Adaptation Network with Reinforced Self-Constructed Graphs for Cross-Subject EEG-Based Emotion and Consciousness Recognition",
         "href": "https://ieeexplore.ieee.org/document/11142795",
-        "authors": "R. **Chen**, C. Xie, J. Zhang, Q. You, J. Pan",
+        "authors": "**R. Chen**, C. Xie, J. Zhang, Q. You, J. Pan",
         "venue": "IEEE Transactions on Neural Systems and Rehabilitation Engineering",
         "year": "2025",
         "cited": 13,
@@ -161,7 +152,7 @@
         "type": "journal",
         "title": "Multi-Scale Dynamic Temporal Network with Graph Matching Domain Adaptation for Cross-Subject EEG Emotion Recognition",
         "href": "",
-        "authors": "R. **Chen**, Z. Hong, L. Li, Z. Huang, J. Li, J. Pan",
+        "authors": "**R. Chen**, Z. Hong, L. Li, Z. Huang, J. Li, J. Pan",
         "venue": "IEEE Transactions on Affective Computing",
         "year": "2026",
         "cited": 4,
@@ -181,7 +172,7 @@
         "type": "journal",
         "title": "Golden-Style Graph Alignment for Cross-Dataset EEG Emotion Recognition",
         "href": "",
-        "authors": "R. **Chen**, Z. Huang, J. Chen, X. Lin, J. Pan",
+        "authors": "**R. Chen**, Z. Huang, J. Chen, X. Lin, J. Pan",
         "venue": "IEEE Transactions on Affective Computing",
         "year": "2026",
         "cited": 1,
@@ -201,7 +192,7 @@
         "type": "conference",
         "title": "A Multi-Dimensional Feature Fusion and Multi-Level Domain Adaptation Network for Cross-Subject EEG Emotion Recognition",
         "href": "",
-        "authors": "C. Xie, R. **Chen**, Z. Huang, J. Zhang, L. Qiu, J. Pan",
+        "authors": "C. Xie, **R. Chen**, Z. Huang, J. Zhang, L. Qiu, J. Pan",
         "venue": "IEEE ICASSP",
         "year": "2026",
         "cited": 1,
@@ -217,7 +208,7 @@
         "type": "conference",
         "title": "PR-DA: Prototype Regularization Domain Adaptation for Cross-Subject EEG-Based Emotion Recognition",
         "href": "",
-        "authors": "R. **Chen**, Z. Hong, Q. You, C. Xie, J. Zhang, J. Pan",
+        "authors": "**R. Chen**, Z. Hong, Q. You, C. Xie, J. Zhang, J. Pan",
         "venue": "IEEE International Conference on Bioinformatics and Biomedicine",
         "year": "2025",
         "cited": 1,
@@ -237,7 +228,7 @@
         "type": "journal",
         "title": "HEAT: Hierarchical Emotion Adaptation with Progressive Thresholding for EEG Emotion and Consciousness Detection",
         "href": "",
-        "authors": "Z. Hong, R. **Chen**, L. Li, J. Chen, W. Gao, J. Pan",
+        "authors": "Z. Hong, **R. Chen**, L. Li, J. Chen, W. Gao, J. Pan",
         "venue": "Biomedical Signal Processing and Control",
         "year": "2026",
         "cited": 0,
@@ -245,38 +236,6 @@
           {
             "label": "Scholar",
             "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:9yKSN-GCB0IC"
-          }
-        ]
-      },
-      {
-        "badge": "CogSci",
-        "type": "conference",
-        "title": "MLDA-STG: A Multi-Level Domain Adaptation Spatio-Temporal Graph Network for Cross-Subject EEG Fatigue Detection",
-        "href": "",
-        "authors": "J. Zhang, R. **Chen**, Z. Huang, C. Xie, J. Pan, L. Qiu",
-        "venue": "Annual Meeting of the Cognitive Science Society",
-        "year": "2026",
-        "cited": 0,
-        "links": [
-          {
-            "label": "Scholar",
-            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:roLk4NBRz8UC"
-          }
-        ]
-      },
-      {
-        "badge": "CogSci",
-        "type": "conference",
-        "title": "EmoVAE: Bridging Affective Neural Dynamics for Cross-Dataset Emotion Recognition",
-        "href": "",
-        "authors": "Z. Huang, R. **Chen**, X. Lin, J. Chen, J. Pan",
-        "venue": "Annual Meeting of the Cognitive Science Society",
-        "year": "2026",
-        "cited": 0,
-        "links": [
-          {
-            "label": "Scholar",
-            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:UeHWp8X0CEIC"
           }
         ]
       }
@@ -288,7 +247,7 @@
     "sub": "Reproducible implementations, all on [GitHub](https://github.com/seizeall).",
     "items": [
       {
-        "name": "mycode",
+        "name": "RSCG-PMDA",
         "href": "https://github.com/seizeall/mycode",
         "stars": 16,
         "desc": "Official implementation of the progressive multi-domain adaptation network — TNSRE 2025.",
@@ -324,22 +283,17 @@
   "contact": {
     "kicker": "06 — Contact",
     "heading": "Get in touch",
-    "sub": "Happy to talk about EEG, affective computing, or a collaboration — email is the most reliable way to reach me.",
+    "sub": "",
     "links": [
       {
         "name": "Google Scholar",
-        "handle": "KTdaZuUAAAAJ",
+        "handle": "Great",
         "href": "https://scholar.google.com/citations?user=KTdaZuUAAAAJ"
       },
       {
         "name": "GitHub",
         "handle": "@seizeall",
         "href": "https://github.com/seizeall"
-      },
-      {
-        "name": "School of Cyber Science & Engineering",
-        "handle": "Southeast University",
-        "href": "https://cyber.seu.edu.cn/"
       }
     ]
   }
