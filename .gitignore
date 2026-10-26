@@ -6,7 +6,7 @@ desktop.ini
 node_modules/
 
 # Local preview screenshot (not part of the site)
-preview.png
+preview*.png
 
 # Local scratch
 local/
