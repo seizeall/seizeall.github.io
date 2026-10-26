@@ -18,7 +18,6 @@
 │   └── img/
 │       ├── portrait.jpg       ← 头像（换掉它即可）
 │       └── favicon.svg        ← 标签页图标
-├── .github/workflows/pages.yml ← 推送到 main 自动部署到 GitHub Pages
 ├── robots.txt / sitemap.xml    ← 搜索引擎用
 └── .nojekyll                   ← 关掉 Jekyll，让静态文件原样发布
 ```
@@ -49,9 +48,11 @@ git push -u origin main
 然后：
 
 1. 打开 `https://github.com/seizeall/seizeall.github.io/settings/pages`
-2. **Build and deployment → Source** 选 **GitHub Actions**（不是 “Deploy from a branch”）
-3. 回到 **Actions** 标签，等 `Deploy static site to GitHub Pages` 变成绿色
-4. 访问 `https://seizeall.github.io/`，手机上也看一眼
+2. **Build and deployment → Source** 选 **Deploy from a branch**
+3. **Branch** 选 `main`，目录选 `/ (root)`，Save
+4. 等 1 分钟左右访问 `https://seizeall.github.io/`，手机上也看一眼
+
+之后每次 `git push` 到 `main`，线上会在几十秒内自动更新，不用再碰设置。
 
 > 仓库如果已经存在且非空，先 `git pull --rebase origin main` 再推。
 > 想用自定义域名（比如 `chenrongtao.com`）：在 Settings → Pages 里填 Custom domain，再按提示加一条 CNAME 记录。
