@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+desktop.ini
+.tmp/
+*.log
+node_modules/
+
+# Local preview screenshot (not part of the site)
+preview.png
+
+# Local scratch
+local/

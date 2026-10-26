@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rongtao Chen · Affective Computing & Multimodal Reasoning</title>
+
+  <meta name="description" content="Rongtao Chen — M.S. student at the School of Cyber Science and Engineering, Southeast University. Research on affective computing, EEG-based emotion recognition, cross-subject transfer and multimodal reasoning.">
+  <meta name="author" content="Rongtao Chen">
+  <meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0d14" media="(prefers-color-scheme: dark)">
+
+  <!-- Social preview. Change the domain after you deploy. -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Rongtao Chen · Affective Computing & Multimodal Reasoning">
+  <meta property="og:description" content="M.S. student at Southeast University working on affective computing, EEG-based emotion recognition and multimodal reasoning.">
+  <meta property="og:url" content="https://seizeall.github.io/">
+  <meta property="og:image" content="https://seizeall.github.io/assets/img/portrait.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/portrait.jpg">
+  <link rel="preload" as="image" href="assets/img/portrait.jpg">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Set the theme before first paint to avoid a flash. -->
+  <script>
+    (function () {
+      try {
+        document.documentElement.classList.add('js');
+        var saved = localStorage.getItem('theme');
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = saved || (dark ? 'dark' : 'light');
+      } catch (e) { /* private mode: keep the light default */ }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rongtao Chen",
+    "alternateName": "陈荣滔",
+    "url": "https://seizeall.github.io/",
+    "image": "https://seizeall.github.io/assets/img/portrait.jpg",
+    "jobTitle": "M.S. Student",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Southeast University",
+      "department": "School of Cyber Science and Engineering"
+    },
+    "knowsAbout": ["Affective Computing", "EEG-based Emotion Recognition", "Domain Adaptation", "Multimodal Reasoning", "Graph Neural Networks"],
+    "sameAs": [
+      "https://scholar.google.com/citations?user=KTdaZuUAAAAJ",
+      "https://github.com/seizeall"
+    ]
+  }
+  </script>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Rongtao Chen, back to top">
+        <span class="brand-mark" aria-hidden="true">RC</span>
+        <span class="brand-text">
+          <span class="brand-name">Rongtao Chen</span>
+          <span class="brand-sub">Southeast University</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#news">News</a>
+        <a href="#publications">Publications</a>
+        <a href="#code">Code</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-tools">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/>
+          </svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/>
+          </svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+          <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="eyebrow-text">M.S. Student · Southeast University</span>
+          </p>
+
+          <h1 id="hero-title">
+            Rongtao Chen
+            <span class="cjk">陈荣滔</span>
+          </h1>
+
+          <p class="lede">
+            I study how machines come to <em>feel</em> — teaching models to infer emotional and
+            cognitive states from physiological signals, and to reason across modalities rather
+            than fire off a single label.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#publications">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h6.8L18 8.2V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V4a.5.5 0 0 1 .5-.5Z"/><path d="M13.2 3.6v4.7h4.6"/><path d="M9 12.4h6M9 15.9h4.2"/></svg>
+              Publications
+            </a>
+            <a class="btn" href="https://scholar.google.com/citations?user=KTdaZuUAAAAJ" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1.8 9.1 12 15.2l10.2-6.1L12 3Z"/><path d="M5.4 11.5v4.9c0 2 3 3.6 6.6 3.6s6.6-1.6 6.6-3.6v-4.9"/></svg>
+              Google Scholar
+            </a>
+            <a class="btn btn-ghost" href="mailto:rongtao.chen@seu.edu.cn">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="m3.4 6.6 8.6 6.2 8.6-6.2"/></svg>
+              Email
+            </a>
+          </div>
+
+          <dl class="stats" aria-label="Research metrics, from Google Scholar">
+            <div class="stat">
+              <dt>Citations</dt>
+              <dd><span class="count" data-count="20">20</span></dd>
+            </div>
+            <div class="stat">
+              <dt>Publications</dt>
+              <dd><span class="count" data-count="8">8</span></dd>
+            </div>
+            <div class="stat">
+              <dt>h-index</dt>
+              <dd><span class="count" data-count="2">2</span></dd>
+            </div>
+            <div class="stat">
+              <dt>i10-index</dt>
+              <dd><span class="count" data-count="2">2</span></dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero-figure">
+          <div class="portrait-ring">
+            <div class="portrait-card">
+              <!-- Replace assets/img/portrait.jpg with a real headshot whenever you like. -->
+              <img src="assets/img/portrait.jpg" alt="Portrait of Rongtao Chen" width="512" height="512" fetchpriority="high">
+            </div>
+          </div>
+          <p class="portrait-chip">
+            <span class="pulse" aria-hidden="true"></span>
+            Nanjing, China
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-glow" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-kicker">01 — About</p>
+          <h2 id="about-title">A little context</h2>
+        </header>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I am a master's student at the <strong>School of Cyber Science and Engineering,
+              Southeast University</strong>. My work sits between <strong>affective computing</strong>
+              and <strong>multimodal learning</strong>: getting a model to read the emotional and
+              cognitive state of a person from signals that were never designed to be read.
+            </p>
+            <p>
+              Most of my published work is on <strong>cross-subject and cross-dataset EEG emotion
+              recognition</strong>. The hard part is not fitting one person's brainwaves — it is
+              making a model trained on a handful of subjects behave sensibly on someone it has
+              never met, recorded on hardware it has never seen. I approach that with graph-based
+              domain adaptation: align distributions across people and sessions, and let the
+              electrode topology do some of the regularisation for you.
+            </p>
+            <p>
+              I am currently extending this line toward <strong>multimodal reasoning</strong>, where
+              language, vision and physiological streams are used jointly to infer affect and
+              intent instead of collapsing everything into one label.
+            </p>
+
+            <ul class="tag-row" aria-label="Research keywords">
+              <li>Affective Computing</li>
+              <li>EEG</li>
+              <li>Domain Adaptation</li>
+              <li>Graph Neural Networks</li>
+              <li>Multimodal Reasoning</li>
+            </ul>
+          </div>
+
+          <aside class="glance" aria-label="At a glance">
+            <h3>At a glance</h3>
+            <dl>
+              <div><dt>Position</dt><dd>M.S. Student</dd></div>
+              <div><dt>Affiliation</dt><dd>Southeast University</dd></div>
+              <div><dt>Department</dt><dd>Cyber Science &amp; Engineering</dd></div>
+              <div><dt>Location</dt><dd>Nanjing, China</dd></div>
+              <div><dt>Focus</dt><dd>Affective computing · Multimodal reasoning</dd></div>
+            </dl>
+            <a class="glance-link" href="https://github.com/seizeall" target="_blank" rel="noopener">
+              GitHub profile
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9"/></svg>
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESEARCH ============ -->
+    <section class="section section-alt" id="research" aria-labelledby="research-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-kicker">02 — Research</p>
+          <h2 id="research-title">What I work on</h2>
+          <p class="section-sub">
+            Four threads that keep showing up in the papers below — the first two are where I am
+            heading, the last two are where I have the most mileage.
+          </p>
+        </header>
+
+        <div class="card-grid">
+          <article class="card feature" data-reveal>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 12h3l2.2-6.5L12 18l2.4-8.5 1.6 4.5H21"/></svg>
+            </span>
+            <h3>Affective Computing</h3>
+            <p>
+              Estimating emotional and cognitive states from physiological signals — EEG first,
+              with peripheral signals as a complement. The goal is a reading that is stable enough
+              to trust outside the lab.
+            </p>
+            <ul class="card-tags"><li>EEG</li><li>Emotion</li><li>Consciousness</li></ul>
+          </article>
+
+          <article class="card feature" data-reveal>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8.1 7.3 10.9 16M15.9 7.3 13.1 16M8.4 6h7.2"/></svg>
+            </span>
+            <h3>Multimodal Reasoning</h3>
+            <p>
+              Joint inference over language, vision and physiology. Rather than a single fused
+              classifier, I am interested in models that reason about <em>why</em> a state holds and
+              can be asked follow-up questions about it.
+            </p>
+            <ul class="card-tags"><li>LLM reasoning</li><li>Fusion</li><li>Interpretability</li></ul>
+          </article>
+
+          <article class="card" data-reveal>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 7h7M4 12h5M4 17h7"/><path d="M14 5.5v6M14 8.5h5.5V11"/><circle cx="19.5" cy="17" r="2.5"/></svg>
+            </span>
+            <h3>Cross-Subject &amp; Cross-Dataset Transfer</h3>
+            <p>
+              Domain adaptation, prototype regularisation and graph matching so that a model trained
+              on a few subjects generalises to unseen people, sessions and recording rigs.
+            </p>
+            <ul class="card-tags"><li>Domain adaptation</li><li>Calibration-free</li></ul>
+          </article>
+
+          <article class="card" data-reveal>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="1.8"/><circle cx="12" cy="4.5" r="1.8"/><circle cx="19" cy="6" r="1.8"/><circle cx="5" cy="18" r="1.8"/><circle cx="12" cy="19.5" r="1.8"/><circle cx="19" cy="18" r="1.8"/><path d="M5 6v12M12 4.5v15M19 6v12M5 6l14 12M19 6 5 18"/></svg>
+            </span>
+            <h3>Graph Learning for Brain Signals</h3>
+            <p>
+              Spatio-temporal graph networks that respect the electrode layout, plus reinforced
+              self-constructed graphs when the connectivity is not given a priori.
+            </p>
+            <ul class="card-tags"><li>GNN</li><li>Connectivity</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NEWS ============ -->
+    <section class="section" id="news" aria-labelledby="news-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-kicker">03 — News</p>
+          <h2 id="news-title">Recent updates</h2>
+        </header>
+
+        <!-- Edit freely: copy a <li> and change the year / text. -->
+        <ol class="timeline">
+          <li data-reveal>
+            <span class="when">2026</span>
+            <div class="what">
+              <p>Two papers accepted to <strong>IEEE Transactions on Affective Computing</strong> — on multi-scale temporal modelling and cross-dataset graph alignment.</p>
+            </div>
+          </li>
+          <li data-reveal>
+            <span class="when">2026</span>
+            <div class="what">
+              <p><em>MLDA-STG</em> and <em>EmoVAE</em> appear at the <strong>Annual Meeting of the Cognitive Science Society</strong>.</p>
+            </div>
+          </li>
+          <li data-reveal>
+            <span class="when">2026</span>
+            <div class="what">
+              <p>Paper on multi-dimensional feature fusion and multi-level domain adaptation accepted to <strong>ICASSP 2026</strong>.</p>
+            </div>
+          </li>
+          <li data-reveal>
+            <span class="when">2025</span>
+            <div class="what">
+              <p><em>PR-DA</em> accepted to <strong>IEEE BIBM 2025</strong>; code released on GitHub.</p>
+            </div>
+          </li>
+          <li data-reveal>
+            <span class="when">2025</span>
+            <div class="what">
+              <p>Paper on progressive multi-domain adaptation published in <strong>IEEE TNSRE</strong> — with code.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ PUBLICATIONS ============ -->
+    <section class="section section-alt" id="publications" aria-labelledby="pub-title">
+      <div class="wrap">
+        <header class="section-head">
+          <div class="head-row">
+            <div>
+              <p class="section-kicker">04 — Publications</p>
+              <h2 id="pub-title">Selected work</h2>
+              <p class="section-sub">Full and up-to-date list on
+                <a href="https://scholar.google.com/citations?user=KTdaZuUAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
+                <span class="self-note">My name is highlighted in the author lists.</span>
+              </p>
+            </div>
+            <div class="chips" id="pubFilter" role="group" aria-label="Filter publications by type">
+              <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All <span>8</span></button>
+              <button class="chip" type="button" data-filter="journal" aria-pressed="false">Journal <span>4</span></button>
+              <button class="chip" type="button" data-filter="conference" aria-pressed="false">Conference <span>4</span></button>
+            </div>
+          </div>
+        </header>
+
+        <ol class="pub-list" id="pubList">
+
+          <li class="pub" data-type="journal" data-reveal>
+            <div class="pub-badge" data-kind="journal">TNSRE</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://ieeexplore.ieee.org/document/11142795" target="_blank" rel="noopener">
+                  A Progressive Multi-Domain Adaptation Network with Reinforced Self-Constructed Graphs
+                  for Cross-Subject EEG-Based Emotion and Consciousness Recognition
+                </a>
+              </h3>
+              <p class="pub-authors">R. <strong>Chen</strong>, C. Xie, J. Zhang, Q. You, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">IEEE Transactions on Neural Systems and Rehabilitation Engineering</span>
+                <span class="sep">·</span><span class="year">2025</span>
+                <span class="sep">·</span><span class="cited">Cited by 13</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://ieeexplore.ieee.org/document/11142795" target="_blank" rel="noopener">Paper</a>
+                <a href="https://github.com/seizeall/mycode" target="_blank" rel="noopener">Code</a>
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:d1gkVwhDpl0C" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="journal" data-reveal>
+            <div class="pub-badge" data-kind="journal">TAFFC</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:u-x6o8ySG0sC" target="_blank" rel="noopener">
+                  Multi-Scale Dynamic Temporal Network with Graph Matching Domain Adaptation for
+                  Cross-Subject EEG Emotion Recognition
+                </a>
+              </h3>
+              <p class="pub-authors">R. <strong>Chen</strong>, Z. Hong, L. Li, Z. Huang, J. Li, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">IEEE Transactions on Affective Computing</span>
+                <span class="sep">·</span><span class="year">2026</span>
+                <span class="sep">·</span><span class="cited">Cited by 4</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://github.com/seizeall/MDTN-GMDA" target="_blank" rel="noopener">Code</a>
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:u-x6o8ySG0sC" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="journal" data-reveal>
+            <div class="pub-badge" data-kind="journal">TAFFC</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:qjMakFHDy7sC" target="_blank" rel="noopener">
+                  Golden-Style Graph Alignment for Cross-Dataset EEG Emotion Recognition
+                </a>
+              </h3>
+              <p class="pub-authors">R. <strong>Chen</strong>, Z. Huang, J. Chen, X. Lin, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">IEEE Transactions on Affective Computing</span>
+                <span class="sep">·</span><span class="year">2026</span>
+                <span class="sep">·</span><span class="cited">Cited by 1</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://github.com/seizeall/CAGA-SGA" target="_blank" rel="noopener">Code</a>
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:qjMakFHDy7sC" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="conference" data-reveal>
+            <div class="pub-badge" data-kind="conference">ICASSP</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:2osOgNQ5qMEC" target="_blank" rel="noopener">
+                  A Multi-Dimensional Feature Fusion and Multi-Level Domain Adaptation Network for
+                  Cross-Subject EEG Emotion Recognition
+                </a>
+              </h3>
+              <p class="pub-authors">C. Xie, R. <strong>Chen</strong>, Z. Huang, J. Zhang, L. Qiu, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">IEEE ICASSP</span>
+                <span class="sep">·</span><span class="year">2026</span>
+                <span class="sep">·</span><span class="cited">Cited by 1</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:2osOgNQ5qMEC" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="conference" data-reveal>
+            <div class="pub-badge" data-kind="conference">BIBM</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:u5HHmVD_uO8C" target="_blank" rel="noopener">
+                  PR-DA: Prototype Regularization Domain Adaptation for Cross-Subject EEG-Based
+                  Emotion Recognition
+                </a>
+              </h3>
+              <p class="pub-authors">R. <strong>Chen</strong>, Z. Hong, Q. You, C. Xie, J. Zhang, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">IEEE International Conference on Bioinformatics and Biomedicine</span>
+                <span class="sep">·</span><span class="year">2025</span>
+                <span class="sep">·</span><span class="cited">Cited by 1</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://github.com/seizeall/PR-DA" target="_blank" rel="noopener">Code</a>
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:u5HHmVD_uO8C" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="journal" data-reveal>
+            <div class="pub-badge" data-kind="journal">BSPC</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:9yKSN-GCB0IC" target="_blank" rel="noopener">
+                  HEAT: Hierarchical Emotion Adaptation with Progressive Thresholding for EEG Emotion
+                  and Consciousness Detection
+                </a>
+              </h3>
+              <p class="pub-authors">Z. Hong, R. <strong>Chen</strong>, L. Li, J. Chen, W. Gao, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">Biomedical Signal Processing and Control</span>
+                <span class="sep">·</span><span class="year">2026</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:9yKSN-GCB0IC" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="conference" data-reveal>
+            <div class="pub-badge" data-kind="conference">CogSci</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:roLk4NBRz8UC" target="_blank" rel="noopener">
+                  MLDA-STG: A Multi-Level Domain Adaptation Spatio-Temporal Graph Network for
+                  Cross-Subject EEG Fatigue Detection
+                </a>
+              </h3>
+              <p class="pub-authors">J. Zhang, R. <strong>Chen</strong>, Z. Huang, C. Xie, J. Pan, L. Qiu</p>
+              <p class="pub-meta">
+                <span class="venue">Annual Meeting of the Cognitive Science Society</span>
+                <span class="sep">·</span><span class="year">2026</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:roLk4NBRz8UC" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-type="conference" data-reveal>
+            <div class="pub-badge" data-kind="conference">CogSci</div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:UeHWp8X0CEIC" target="_blank" rel="noopener">
+                  EmoVAE: Bridging Affective Neural Dynamics for Cross-Dataset Emotion Recognition
+                </a>
+              </h3>
+              <p class="pub-authors">Z. Huang, R. <strong>Chen</strong>, X. Lin, J. Chen, J. Pan</p>
+              <p class="pub-meta">
+                <span class="venue">Annual Meeting of the Cognitive Science Society</span>
+                <span class="sep">·</span><span class="year">2026</span>
+              </p>
+              <div class="pub-links">
+                <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=KTdaZuUAAAAJ&amp;citation_for_view=KTdaZuUAAAAJ:UeHWp8X0CEIC" target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+          </li>
+
+        </ol>
+
+        <p class="empty-state" id="pubEmpty" hidden>Nothing in this category yet.</p>
+      </div>
+    </section>
+
+    <!-- ============ CODE ============ -->
+    <section class="section" id="code" aria-labelledby="code-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-kicker">05 — Code</p>
+          <h2 id="code-title">Open source</h2>
+          <p class="section-sub">
+            Reproducible implementations, all on
+            <a href="https://github.com/seizeall" target="_blank" rel="noopener">GitHub</a>.
+          </p>
+        </header>
+
+        <div class="repo-grid">
+          <a class="repo" href="https://github.com/seizeall/mycode" target="_blank" rel="noopener" data-reveal>
+            <div class="repo-top">
+              <h3>mycode</h3>
+              <span class="stars"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.6 2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.8l5.9-.8Z"/></svg>16</span>
+            </div>
+            <p>Official implementation of the progressive multi-domain adaptation network — TNSRE 2025.</p>
+            <span class="repo-lang"><i style="--c:#3572A5"></i>Python</span>
+          </a>
+
+          <a class="repo" href="https://github.com/seizeall/CAGA-SGA" target="_blank" rel="noopener" data-reveal>
+            <div class="repo-top">
+              <h3>CAGA-SGA</h3>
+              <span class="stars"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.6 2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.8l5.9-.8Z"/></svg>4</span>
+            </div>
+            <p>Cross-attention graph alignment with structured graph adaptation, for IEEE TAFFC.</p>
+            <span class="repo-lang"><i style="--c:#3572A5"></i>Python</span>
+          </a>
+
+          <a class="repo" href="https://github.com/seizeall/MDTN-GMDA" target="_blank" rel="noopener" data-reveal>
+            <div class="repo-top">
+              <h3>MDTN-GMDA</h3>
+              <span class="stars"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.6 2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.8l5.9-.8Z"/></svg>3</span>
+            </div>
+            <p>Multi-scale dynamic temporal network with graph matching domain adaptation, for IEEE TAFFC.</p>
+            <span class="repo-lang"><i style="--c:#3572A5"></i>Python</span>
+          </a>
+
+          <a class="repo" href="https://github.com/seizeall/PR-DA" target="_blank" rel="noopener" data-reveal>
+            <div class="repo-top">
+              <h3>PR-DA</h3>
+              <span class="stars"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.6 2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.8l5.9-.8Z"/></svg>5</span>
+            </div>
+            <p>Prototype regularisation for cross-subject EEG emotion recognition — IEEE BIBM 2025.</p>
+            <span class="repo-lang"><i style="--c:#3572A5"></i>Python</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-kicker">06 — Contact</p>
+          <h2 id="contact-title">Get in touch</h2>
+          <p class="section-sub">
+            Happy to talk about EEG, affective computing, or a collaboration — email is the most
+            reliable way to reach me.
+          </p>
+        </header>
+
+        <div class="contact-card" data-reveal>
+          <div class="contact-main">
+            <span class="contact-label">Email</span>
+            <a class="contact-mail" id="mailLink" href="mailto:rongtao.chen@seu.edu.cn">rongtao.chen@seu.edu.cn</a>
+            <button class="btn btn-ghost copy-btn" id="copyEmail" type="button" data-email="rongtao.chen@seu.edu.cn">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 5.5A1.5 1.5 0 0 0 13.5 4H5.5A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15"/></svg>
+              <span class="copy-label">Copy</span>
+            </button>
+          </div>
+
+          <div class="contact-links">
+            <a href="https://scholar.google.com/citations?user=KTdaZuUAAAAJ" target="_blank" rel="noopener">
+              <span class="cl-name">Google Scholar</span>
+              <span class="cl-handle">KTdaZuUAAAAJ</span>
+            </a>
+            <a href="https://github.com/seizeall" target="_blank" rel="noopener">
+              <span class="cl-name">GitHub</span>
+              <span class="cl-handle">@seizeall</span>
+            </a>
+            <a href="https://cyber.seu.edu.cn/" target="_blank" rel="noopener">
+              <span class="cl-name">School of Cyber Science &amp; Engineering</span>
+              <span class="cl-handle">Southeast University</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year">2026</span> Rongtao Chen · 陈荣滔</p>
+      <p class="footer-meta">
+        Built with plain HTML &amp; CSS · Hosted on GitHub Pages
+      </p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
