@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><!--#TITLE#--></title>
+
+  <meta name="description" content="<!--#DESCRIPTION#-->">
+  <meta name="author" content="<!--#NAME#-->">
+  <meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0d14" media="(prefers-color-scheme: dark)">
+
+  <!-- Social preview. Change the domain in content.json after you deploy. -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="<!--#TITLE#-->">
+  <meta property="og:description" content="<!--#DESCRIPTION#-->">
+  <meta property="og:url" content="<!--#URL#-->">
+  <meta property="og:image" content="<!--#OG_IMAGE#-->">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/portrait.jpg">
+  <link rel="preload" as="image" href="assets/img/portrait.jpg?v=<!--#ASSET_V#-->">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Set the theme before first paint to avoid a flash. -->
+  <script>
+    (function () {
+      try {
+        document.documentElement.classList.add('js');
+        var saved = localStorage.getItem('theme');
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = saved || (dark ? 'dark' : 'light');
+      } catch (e) { /* private mode: keep the light default */ }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+<!--#JSONLD#-->
+  </script>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="<!--#NAME#-->, back to top">
+        <span class="brand-mark" aria-hidden="true">RC</span>
+        <span class="brand-text">
+          <span class="brand-name"><!--#NAME#--></span>
+          <span class="brand-sub">Southeast University</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#news">News</a>
+        <a href="#publications">Publications</a>
+        <a href="#code">Code</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-tools">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/>
+          </svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/>
+          </svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+          <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+<!--#HERO#-->
+
+<!--#ABOUT#-->
+
+<!--#RESEARCH#-->
+
+<!--#NEWS#-->
+
+<!--#PUBLICATIONS#-->
+
+<!--#CODE#-->
+
+<!--#CONTACT#-->
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"><!--#YEAR#--></span> <!--#NAME#--> · <!--#NAME_CJK#--></p>
+      <p class="footer-meta">
+        Built with plain HTML &amp; CSS · Hosted on GitHub Pages
+      </p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

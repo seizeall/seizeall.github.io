@@ -467,20 +467,6 @@ button { font: inherit; color: inherit; }
 }
 .about-text strong { color: var(--text); font-weight: 620; }
 
-.tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 24px;
-}
-.tag-row li {
-  padding: 5px 12px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
-  font-size: .775rem;
-  color: var(--text-2);
-}
 
 .glance {
   padding: 24px;

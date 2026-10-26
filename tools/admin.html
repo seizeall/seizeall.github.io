@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主页编辑器 · Rongtao Chen</title>
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --text: #0d1424;
+    --text-2: #3c4759;
+    --muted: #6a7690;
+    --border: #e2e7f0;
+    --border-2: #cfd7e6;
+    --accent: #2f5cf6;
+    --accent-soft: #e9efff;
+    --green: #0f9d58;
+    --red: #d93025;
+    --amber: #b45309;
+    --amber-soft: #fdf1e3;
+    --radius: 12px;
+    --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
+  }
+  button { font: inherit; cursor: pointer; }
+  input, textarea, select { font: inherit; color: inherit; }
+
+  /* top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 16px;
+    height: 62px; padding: 0 20px;
+    background: rgba(255,255,255,.88); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: 8px; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
+    background: linear-gradient(140deg, #2f5cf6, #7c5cf6 70%, #0e9f9f);
+    color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  }
+  .brand-text { line-height: 1.15; }
+  .brand-text b { display: block; font-size: 13.5px; }
+  .brand-text span { font-size: 11px; color: var(--muted); }
+
+  .status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--muted);
+    padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px;
+    background: var(--surface); white-space: nowrap;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+  .dot.dirty { background: var(--amber); }
+  .dot.off { background: #b6bfd0; }
+
+  .actions { margin-left: auto; display: flex; gap: 8px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 13px; border-radius: 9px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    font-size: 13px; font-weight: 500; transition: .15s ease;
+  }
+  .btn:hover { border-color: var(--border-2); transform: translateY(-1px); }
+  .btn:active { transform: none; }
+  .btn.primary { background: linear-gradient(135deg, #2f5cf6, #5b4bf0); border-color: transparent; color: #fff; }
+  .btn.primary:hover { box-shadow: 0 8px 20px -12px #2f5cf6; }
+  .btn.ghost { background: transparent; }
+  .btn.danger { color: var(--red); border-color: #f3c9c5; }
+  .btn.small { padding: 4px 9px; font-size: 12px; border-radius: 7px; }
+  .btn[disabled] { opacity: .5; pointer-events: none; }
+
+  /* layout */
+  .layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); align-items: start; }
+  .side {
+    position: sticky; top: 62px; height: calc(100vh - 62px);
+    padding: 18px 12px; border-right: 1px solid var(--border);
+    overflow-y: auto; background: rgba(255,255,255,.45);
+  }
+  .side button {
+    display: flex; align-items: center; gap: 9px; width: 100%;
+    padding: 9px 11px; margin-bottom: 2px;
+    border: 0; border-radius: 9px; background: transparent;
+    color: var(--text-2); font-size: 13.5px; text-align: left;
+  }
+  .side button:hover { background: rgba(13,20,36,.045); color: var(--text); }
+  .side button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .side .ico { width: 18px; text-align: center; opacity: .8; }
+
+  .panel { padding: 26px 30px 120px; max-width: 980px; }
+  .panel h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: -.02em; }
+  .panel .sub { color: var(--muted); font-size: 13px; margin: 0 0 22px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px 22px; margin-bottom: 16px;
+  }
+
+  .field { display: block; margin-bottom: 14px; }
+  .field > .lab { display: block; font-size: 12px; font-weight: 600; color: var(--text-2); margin-bottom: 5px; letter-spacing: .01em; }
+  .field .hint { display: block; font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  input[type=text], input[type=number], textarea, select {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+    background: #fbfcfe; outline: none; transition: .15s ease;
+  }
+  textarea { resize: vertical; min-height: 64px; line-height: 1.55; }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(47,92,246,.12); }
+  .mono { font-family: var(--mono); font-size: 12.5px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 14px; }
+
+  /* repeatable groups */
+  .array { margin: 6px 0 4px; }
+  .item {
+    border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 4px;
+    margin-bottom: 10px; background: #fcfdff;
+  }
+  .item.dragging { border-color: var(--accent); }
+  .item-head { display: flex; align-items: center; gap: 8px; margin: -2px 0 10px; }
+  .item-head .idx {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    background: var(--bg); border-radius: 5px; padding: 2px 6px;
+  }
+  .item-head .ttl { font-size: 12.5px; color: var(--text-2); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 380px; }
+  .item-head .tools { margin-left: auto; display: flex; gap: 5px; }
+  .iconbtn {
+    width: 26px; height: 26px; display: grid; place-items: center;
+    border: 1px solid var(--border); border-radius: 7px; background: #fff; color: var(--muted);
+    font-size: 13px; line-height: 1;
+  }
+  .iconbtn:hover { color: var(--text); border-color: var(--border-2); }
+  .iconbtn.danger:hover { color: var(--red); border-color: #f3c9c5; }
+  .addrow { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+
+  .empty-note { color: var(--muted); font-size: 12.5px; padding: 10px 0; }
+
+  /* history dialog */
+  dialog {
+    border: 0; border-radius: 16px; padding: 0; width: min(680px, 92vw);
+    box-shadow: 0 40px 80px -30px rgba(13,20,36,.45); color: var(--text);
+  }
+  dialog::backdrop { background: rgba(13,20,36,.35); backdrop-filter: blur(2px); }
+  .dlg-head { display: flex; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--border); }
+  .dlg-head h2 { margin: 0; font-size: 15px; }
+  .dlg-body { max-height: 60vh; overflow: auto; padding: 8px 12px 14px; }
+  .commit { display: flex; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid #f1f4f9; }
+  .commit:last-child { border-bottom: 0; }
+  .commit .sha { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+  .commit .date { font-size: 11.5px; color: var(--muted); }
+  .commit .subj { font-size: 13px; }
+  .commit .grow { flex: 1; min-width: 0; }
+  .commit .subj span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* toast */
+  .toast {
+    position: fixed; right: 20px; bottom: 20px; z-index: 60;
+    max-width: 460px; padding: 12px 16px; border-radius: 10px;
+    background: #0d1424; color: #fff; font-size: 13px; line-height: 1.5;
+    box-shadow: 0 20px 40px -18px rgba(0,0,0,.55);
+    opacity: 0; transform: translateY(8px); pointer-events: none; transition: .2s ease;
+  }
+  .toast.show { opacity: 1; transform: none; }
+  .toast.ok { background: #0b3d2c; }
+  .toast.err { background: #4a1213; }
+  .toast pre { margin: 8px 0 0; font-family: var(--mono); font-size: 11.5px; white-space: pre-wrap; opacity: .85; max-height: 160px; overflow: auto; }
+
+  .muted { color: var(--muted); }
+  .kbd { font-family: var(--mono); font-size: 11px; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; color: var(--muted); background: #fff; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .side { position: static; height: auto; display: flex; gap: 4px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); padding: 10px; }
+    .side button { width: auto; white-space: nowrap; }
+    .panel { padding: 20px 16px 120px; }
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">RC</div>
+    <div class="brand-text"><b>主页编辑器</b><span id="siteHost">seizeall.github.io</span></div>
+  </div>
+  <div class="status" id="status"><span class="dot off"></span><span id="statusText">连接中…</span></div>
+  <div class="actions">
+    <button class="btn ghost" id="btnPreview" title="在新标签页打开站点">预览</button>
+    <button class="btn" id="btnSave" title="写入 content.json 并重新生成 index.html">保存并生成</button>
+    <button class="btn primary" id="btnPublish" title="保存 + git commit + git push">发布到 GitHub</button>
+    <button class="btn ghost" id="btnHistory" title="查看提交历史并回退">历史</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="nav"></nav>
+  <main class="panel" id="panel"><p class="muted">加载中…</p></main>
+</div>
+
+<dialog id="historyDlg">
+  <div class="dlg-head">
+    <h2>提交历史</h2>
+    <button class="btn small ghost" id="closeHistory" style="margin-left:auto">关闭</button>
+  </div>
+  <div class="dlg-body" id="historyBody"></div>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  const TOKEN = "__TOKEN__";
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  };
+
+  const state = { content: null, section: "site", formDirty: false, gitDirty: false, busy: false };
+
+  /* ---------------- api ---------------- */
+  async function api(path, options = {}) {
+    const res = await fetch(path, {
+      ...options,
+      headers: { "X-Admin-Token": TOKEN, "Content-Type": "application/json", ...(options.headers || {}) },
+    });
+    const data = await res.json().catch(() => ({ ok: false, error: "HTTP " + res.status }));
+    if (!res.ok && data.ok !== false) data.ok = false;
+    return data;
+  }
+
+  function toast(message, kind = "", detail = "") {
+    const box = document.getElementById("toast");
+    box.className = "toast show " + kind;
+    box.textContent = message;
+    if (detail) {
+      const pre = el("pre", "", detail);
+      box.appendChild(pre);
+    }
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => { box.className = "toast " + kind; }, kind === "err" ? 9000 : 3600);
+  }
+
+  function markDirty() {
+    state.formDirty = true;
+    renderStatus();
+  }
+
+  async function refreshStatus() {
+    const s = await api("/api/status");
+    if (!s.ok) return;
+    state.status = s;
+    state.gitDirty = s.dirty;
+    renderStatus();
+    document.getElementById("siteHost").textContent = (state.content && state.content.site.url) || "本地";
+  }
+
+  function renderStatus() {
+    const s = state.status || {};
+    const dot = document.querySelector("#status .dot");
+    const text = document.getElementById("statusText");
+    const pending = state.formDirty || state.gitDirty;
+    dot.className = "dot" + (pending ? " dirty" : "");
+    const bits = [s.branch || "main"];
+    bits.push(state.formDirty ? "有未保存的修改" : (state.gitDirty ? "已生成，待发布" : "已同步"));
+    if (s.ahead) bits.push("领先 " + s.ahead);
+    if (s.behind) bits.push("落后 " + s.behind);
+    text.textContent = bits.join(" · ");
+    text.title = s.last_commit || "";
+    document.getElementById("btnSave").disabled = !state.formDirty || state.busy;
+    document.getElementById("btnPublish").disabled = state.busy;
+  }
+
+  /* ---------------- schema ---------------- */
+  const T = (k, l, extra) => ({ k, l, t: "text", ...extra });
+  const TA = (k, l, extra) => ({ k, l, t: "textarea", ...extra });
+  const N = (k, l, extra) => ({ k, l, t: "number", ...extra });
+
+  const SECTIONS = [
+    {
+      id: "site", label: "站点信息", icon: "⚙", obj: "site",
+      hint: "名字、邮箱、链接这些全局信息。改动会同步到页头、联系方式和 SEO 标签。",
+      extra: "portrait",
+      fields: [
+        { grid: 2, fields: [T("name", "姓名（英文）"), T("name_cjk", "姓名（中文）")] },
+        T("title", "浏览器标题", { hint: "出现在标签页和搜索结果里" }),
+        TA("description", "页面描述（SEO）", { hint: "一两句话，搜索引擎摘要用" }),
+        { grid: 2, fields: [T("url", "站点地址"), T("email", "邮箱")] },
+        { grid: 2, fields: [T("scholar", "Google Scholar"), T("github", "GitHub")] },
+        { grid: 2, fields: [T("university", "学校"), T("department", "院系")] },
+      ],
+    },
+    {
+      id: "hero", label: "首页 Hero", icon: "◉", obj: "hero",
+      hint: "第一屏：小标签、一句话介绍、所在地、四个数字。**加粗**、*斜体* 和 [文字](链接) 都能用。",
+      fields: [
+        T("eyebrow", "小标签", { hint: "例如 M.S. Student · Southeast University" }),
+        TA("lede", "一句话介绍", { hint: "支持 **加粗** 与 *斜体*" }),
+        T("location", "所在地"),
+        {
+          k: "stats", l: "数字指标", t: "array", addLabel: "添加一个指标",
+          item: { fields: [{ grid: 2, fields: [T("label", "名称"), N("value", "数值")] }] },
+        },
+      ],
+    },
+    {
+      id: "about", label: "关于", icon: "¶", obj: "about",
+      hint: "左侧是几段自我介绍，右侧是「At a glance」小卡片。",
+      fields: [
+        { grid: 2, fields: [T("kicker", "小标题编号"), T("heading", "标题")] },
+        { k: "paragraphs", l: "段落", t: "array", addLabel: "添加一段", item: { t: "string", rows: 4 } },
+        {
+          k: "glance", l: "At a glance 条目", t: "array", addLabel: "添加一行",
+          item: { fields: [{ grid: 2, fields: [T("key", "名称"), T("value", "内容")] }] },
+        },
+        {
+          k: "glance_link", l: "卡片底部链接", t: "object",
+          fields: [{ grid: 2, fields: [T("label", "链接文字"), T("href", "地址")] }],
+        },
+      ],
+    },
+    {
+      id: "research", label: "研究方向", icon: "◈", obj: "research",
+      hint: "每张卡片一个方向。图标可选：wave / graph / transfer / mesh / book / chip。",
+      fields: [
+        { grid: 2, fields: [T("kicker", "小标题编号"), T("heading", "标题")] },
+        TA("sub", "副标题", { rows: 2 }),
+        {
+          k: "items", l: "方向卡片", t: "array", addLabel: "添加一个方向",
+          itemTitle: (it) => it.title,
+          item: {
+            fields: [
+              { grid: 2, fields: [T("title", "标题"), { k: "icon", l: "图标", t: "select", o: ["wave", "graph", "transfer", "mesh", "book", "chip"].map(v => ({ v, l: v })) }] },
+              TA("text", "描述", { rows: 3 }),
+              T("tags", "标签", { hint: "用英文逗号分隔" , list: true }),
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: "news", label: "新闻", icon: "◷", obj: "news",
+      hint: "按时间倒序排列，年份 + 一句话。",
+      fields: [
+        { grid: 2, fields: [T("kicker", "小标题编号"), T("heading", "标题")] },
+        {
+          k: "items", l: "新闻条目", t: "array", addLabel: "添加一条",
+          itemTitle: (it) => it.when + " · " + (it.text || "").slice(0, 40),
+          item: { fields: [{ grid: 2, fields: [T("when", "年份"), TA("text", "内容", { rows: 2 })] }] },
+        },
+      ],
+    },
+    {
+      id: "publications", label: "论文", icon: "▤", obj: "publications", wide: true,
+      hint: "列表可以上下移动调整顺序；期刊 / 会议靠 type 区分，页面上的筛选按钮会自动算数量。",
+      fields: [
+        { grid: 2, fields: [T("kicker", "小标题编号"), T("heading", "标题")] },
+        T("sub", "副标题"),
+        { grid: 2, fields: [T("scholar", "Scholar 链接"), T("scholar_text", "链接文字")] },
+        T("note", "作者说明"),
+        {
+          k: "items", l: "论文列表", t: "array", addLabel: "添加一篇论文", extra: "pdf",
+          itemTitle: (it) => it.title,
+          item: {
+            fields: [
+              { grid: 3, fields: [
+                  T("badge", "短标签", { hint: "TNSRE / TAFFC…" }),
+                  { k: "type", l: "类型", t: "select", o: [{ v: "journal", l: "期刊" }, { v: "conference", l: "会议" }] },
+                  N("year", "年份"),
+                ] },
+              TA("title", "标题", { rows: 2 }),
+              T("href", "标题链接（可空）"),
+              T("authors", "作者", { hint: "自己的名字用 ** 包起来就会高亮" }),
+              T("venue", "期刊 / 会议全名"),
+              N("cited", "引用数", { hint: "0 或空就不显示" }),
+              {
+                k: "links", l: "链接", t: "array", addLabel: "添加链接",
+                item: { fields: [{ grid: 2, fields: [T("label", "文字"), T("href", "地址")] }] },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: "code", label: "开源项目", icon: "⌘", obj: "code",
+      hint: "GitHub 仓库卡片，star 数要手填（本地不联网也能编辑）。",
+      fields: [
+        { grid: 2, fields: [T("kicker", "小标题编号"), T("heading", "标题")] },
+        T("sub", "副标题", { hint: "支持 [文字](链接)" }),
+        {
+          k: "items", l: "仓库", t: "array", addLabel: "添加一个仓库",
+          itemTitle: (it) => it.name,
+          item: { fields: [
+            { grid: 2, fields: [T("name", "仓库名"), T("href", "地址")] },
+            TA("desc", "描述", { rows: 2 }),
+            { grid: 3, fields: [
+                N("stars", "Star 数"),
+                T("lang", "语言"),
+                T("color", "语言颜色", { hint: "如 #3572A5" }),
+              ] },
+          ] },
+        },
+      ],
+    },
+    {
+      id: "contact", label: "联系方式", icon: "✉", obj: "contact",
+      hint: "邮箱取自「站点信息」，这里只改文案和右侧链接。",
+      fields: [
+        { grid: 2, fields: [T("kicker", "小标题编号"), T("heading", "标题")] },
+        TA("sub", "副标题", { rows: 2 }),
+        {
+          k: "links", l: "链接", t: "array", addLabel: "添加链接",
+          itemTitle: (it) => it.name,
+          item: { fields: [
+            T("name", "名称"),
+            { grid: 2, fields: [T("handle", "右侧文字"), T("href", "地址")] },
+          ] },
+        },
+      ],
+    },
+  ];
+
+  /* ---------------- form rendering ---------------- */
+  function fieldControl(owner, f) {
+    const wrap = el("label", "field");
+    wrap.appendChild(el("span", "lab", f.l));
+
+    if (f.t === "select") {
+      const sel = el("select");
+      (f.o || []).forEach(opt => {
+        const o = el("option", "", opt.l);
+        o.value = opt.v;
+        if (owner[f.k] === opt.v) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener("change", () => { owner[f.k] = sel.value; markDirty(); });
+      wrap.appendChild(sel);
+      return wrap;
+    }
+
+    if (f.t === "textarea") {
+      const ta = el("textarea");
+      ta.rows = f.rows || 3;
+      ta.value = owner[f.k] || "";
+      ta.addEventListener("input", () => { owner[f.k] = ta.value; markDirty(); });
+      wrap.appendChild(ta);
+      if (f.hint) wrap.appendChild(el("span", "hint", f.hint));
+      return wrap;
+    }
+
+    if (f.t === "number") {
+      const inp = el("input");
+      inp.type = "number";
+      inp.value = owner[f.k] === undefined ? "" : owner[f.k];
+      inp.addEventListener("input", () => { owner[f.k] = inp.value === "" ? "" : Number(inp.value); markDirty(); });
+      wrap.appendChild(inp);
+      if (f.hint) wrap.appendChild(el("span", "hint", f.hint));
+      return wrap;
+    }
+
+    const inp = el("input");
+    inp.type = "text";
+    if (Array.isArray(owner[f.k])) inp.value = owner[f.k].join(", ");
+    else inp.value = owner[f.k] === undefined ? "" : owner[f.k];
+    inp.addEventListener("input", () => {
+      owner[f.k] = f.list ? inp.value.split(",").map(s => s.trim()).filter(Boolean) : inp.value;
+      markDirty();
+    });
+    wrap.appendChild(inp);
+    if (f.hint) wrap.appendChild(el("span", "hint", f.hint));
+    return wrap;
+  }
+
+  function renderFields(host, owner, fields) {
+    fields.forEach(f => {
+      if (f.grid) {
+        const g = el("div", "grid" + f.grid);
+        f.fields.forEach(sub => g.appendChild(fieldControl(owner, sub)));
+        host.appendChild(g);
+      } else if (f.t === "array") {
+        host.appendChild(arrayEditor(owner, f));
+      } else if (f.t === "object") {
+        const box = el("div", "card");
+        box.style.marginBottom = "14px";
+        box.style.padding = "14px 16px 2px";
+        box.appendChild(el("div", "lab", f.l));
+        if (!owner[f.k] || typeof owner[f.k] !== "object") owner[f.k] = {};
+        renderFields(box, owner[f.k], f.fields);
+        host.appendChild(box);
+      } else {
+        host.appendChild(fieldControl(owner, f));
+      }
+    });
+  }
+
+  function defaultFor(f) {
+    if (f.t === "number") return 0;
+    if (f.t === "select") return (f.o && f.o[0] && f.o[0].v) || "";
+    return "";
+  }
+
+  function blankItem(schema) {
+    if (schema.t === "string") return "";
+    const obj = {};
+    (schema.fields || []).forEach(f => {
+      if (f.grid) f.fields.forEach(sub => { obj[sub.k] = defaultFor(sub); });
+      else if (f.t === "array") obj[f.k] = [];
+      else if (f.t === "object") obj[f.k] = {};
+      else obj[f.k] = defaultFor(f);
+    });
+    return obj;
+  }
+
+  function arrayEditor(owner, f) {
+    const wrap = el("div", "field");
+    wrap.appendChild(el("span", "lab", f.l));
+    const list = el("div", "array");
+    if (!Array.isArray(owner[f.k])) owner[f.k] = [];
+
+    owner[f.k].forEach((item, i) => {
+      const card = el("div", "item");
+      const head = el("div", "item-head");
+      head.appendChild(el("span", "idx", String(i + 1).padStart(2, "0")));
+      if (f.itemTitle) {
+        const t = f.itemTitle(item);
+        if (t) head.appendChild(el("span", "ttl", String(t)));
+      }
+      const tools = el("div", "tools");
+      const up = el("button", "iconbtn", "↑"); up.title = "上移";
+      const down = el("button", "iconbtn", "↓"); down.title = "下移";
+      const del = el("button", "iconbtn danger", "✕"); del.title = "删除";
+      up.onclick = () => { if (i > 0) { swap(owner[f.k], i, i - 1); renderPanel(); markDirty(); } };
+      down.onclick = () => { if (i < owner[f.k].length - 1) { swap(owner[f.k], i, i + 1); renderPanel(); markDirty(); } };
+      del.onclick = () => {
+        if (!confirm("删除这一项？")) return;
+        owner[f.k].splice(i, 1);
+        renderPanel(); markDirty();
+      };
+      tools.append(up, down, del);
+      if (f.extra === "pdf") tools.appendChild(pdfButton(item));
+      head.appendChild(tools);
+      card.appendChild(head);
+
+      if (f.item.t === "string") {
+        const ta = el("textarea");
+        ta.rows = f.item.rows || 3;
+        ta.value = item;
+        ta.addEventListener("input", () => { owner[f.k][i] = ta.value; markDirty(); });
+        card.appendChild(ta);
+      } else {
+        renderFields(card, item, f.item.fields);
+      }
+      list.appendChild(card);
+    });
+
+    if (!owner[f.k].length) list.appendChild(el("div", "empty-note", "还没有内容，点下面的按钮添加。"));
+
+    const add = el("button", "btn small", "+ " + (f.addLabel || "添加"));
+    add.onclick = () => { owner[f.k].push(blankItem(f.item)); renderPanel(); markDirty(); };
+    const row = el("div", "addrow");
+    row.appendChild(add);
+    wrap.appendChild(list);
+    wrap.appendChild(row);
+    return wrap;
+  }
+
+  function swap(arr, a, b) {
+    const tmp = arr[a]; arr[a] = arr[b]; arr[b] = tmp;
+  }
+
+  /* ---------------- pdf upload ---------------- */
+  function pdfButton(item) {
+    const btn = el("button", "btn small", "上传 PDF");
+    const input = el("input");
+    input.type = "file";
+    input.accept = "application/pdf";
+    input.style.display = "none";
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (!file) return;
+      const slug = (item.title || "paper").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "paper";
+      const path = "assets/files/papers/" + slug + ".pdf";
+      btn.textContent = "上传中…";
+      const res = await fetch("/api/upload?path=" + encodeURIComponent(path), {
+        method: "POST",
+        headers: { "X-Admin-Token": TOKEN },
+        body: file,
+      }).then(r => r.json());
+      btn.textContent = "上传 PDF";
+      if (!res.ok) { toast("上传失败：" + res.error, "err"); return; }
+      item.links = item.links || [];
+      const existing = item.links.find(l => (l.label || "").toUpperCase() === "PDF");
+      if (existing) existing.href = res.path;
+      else item.links.push({ label: "PDF", href: res.path });
+      markDirty();
+      renderPanel();
+      toast("已上传 " + res.path + "，记得保存并发布", "ok");
+    };
+    btn.onclick = () => input.click();
+    const holder = el("span");
+    holder.append(btn, input);
+    return holder;
+  }
+
+  /* ---------------- portrait upload ---------------- */
+  function portraitCard() {
+    const card = el("div", "card");
+    card.appendChild(el("div", "lab", "头像"));
+    card.appendChild(el("div", "hint", "正方形最好，≥ 512×512。上传后会自动刷新预览缓存。"));
+
+    const row = el("div", "addrow");
+    row.style.marginTop = "10px";
+    const btn = el("button", "btn small", "更换头像");
+    const input = el("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.style.display = "none";
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (!file) return;
+      btn.textContent = "上传中…";
+      const res = await fetch("/api/upload?path=" + encodeURIComponent("assets/img/portrait.jpg"), {
+        method: "POST",
+        headers: { "X-Admin-Token": TOKEN },
+        body: file,
+      }).then(r => r.json());
+      btn.textContent = "更换头像";
+      if (!res.ok) { toast("上传失败：" + res.error, "err"); return; }
+      await api("/api/rebuild", { method: "POST", body: "{}" });
+      state.formDirty = true;
+      await refreshStatus();
+      toast("头像已替换，记得发布", "ok");
+    };
+    btn.onclick = () => input.click();
+    const img = el("img");
+    img.src = "assets/img/portrait.jpg?v=" + Date.now();
+    img.style.cssText = "width:96px;height:96px;border-radius:16px;object-fit:cover;margin-top:12px;border:1px solid var(--border)";
+    row.append(btn, input);
+    card.append(row, img);
+    return card;
+  }
+
+  /* ---------------- panel ---------------- */
+  function renderNav() {
+    const nav = document.getElementById("nav");
+    nav.innerHTML = "";
+    SECTIONS.forEach(s => {
+      const b = el("button", state.section === s.id ? "on" : "");
+      b.appendChild(el("span", "ico", s.icon));
+      b.appendChild(el("span", "", s.label));
+      b.onclick = () => {
+        state.section = s.id;
+        history.replaceState(null, "", "#" + s.id);
+        renderNav(); renderPanel(); window.scrollTo(0, 0);
+      };
+      nav.appendChild(b);
+    });
+  }
+
+  function renderPanel() {
+    if (!state.content) return;
+    const section = SECTIONS.find(s => s.id === state.section) || SECTIONS[0];
+    const owner = state.content[section.obj];
+    const panel = document.getElementById("panel");
+    panel.innerHTML = "";
+
+    const h = el("h1", "", section.label);
+    panel.appendChild(h);
+    if (section.hint) panel.appendChild(el("p", "sub", section.hint));
+
+    const card = el("div", "card");
+    renderFields(card, owner, section.fields);
+    panel.appendChild(card);
+
+    if (section.extra === "portrait") panel.appendChild(portraitCard());
+
+    const foot = el("p", "sub");
+    foot.style.marginTop = "18px";
+    foot.innerHTML = '改完记得 <span class="kbd">Ctrl</span> + <span class="kbd">S</span> 保存，或者直接点右上角「发布到 GitHub」。';
+    panel.appendChild(foot);
+  }
+
+  /* ---------------- actions ---------------- */
+  async function save(quiet) {
+    if (!state.content) return false;
+    state.busy = true; renderStatus();
+    const res = await api("/api/content", {
+      method: "POST",
+      body: JSON.stringify({ content: state.content }),
+    });
+    state.busy = false;
+    if (!res.ok) {
+      toast("保存失败：" + res.error, "err");
+      renderStatus();
+      return false;
+    }
+    state.formDirty = false;
+    await refreshStatus();
+    if (!quiet) toast("已生成 index.html（" + Math.round(res.bytes / 1024) + " KB）", "ok");
+    return true;
+  }
+
+  async function publish() {
+    if (state.formDirty) {
+      const ok = await save(true);
+      if (!ok) return;
+    }
+    state.busy = true; renderStatus();
+    toast("正在提交并推送…");
+    const res = await api("/api/publish", { method: "POST", body: "{}" });
+    state.busy = false;
+    await refreshStatus();
+    if (res.ok) {
+      toast(res.changed ? res.message : res.message, "ok");
+    } else {
+      toast(res.error || "发布失败", "err", res.log || "");
+    }
+  }
+
+  async function openHistory() {
+    const dlg = document.getElementById("historyDlg");
+    const body = document.getElementById("historyBody");
+    body.innerHTML = "<p class='muted' style='padding:12px'>加载中…</p>";
+    dlg.showModal();
+    const res = await api("/api/history");
+    body.innerHTML = "";
+    if (!res.ok) { body.innerHTML = "<p class='muted' style='padding:12px'>读取失败</p>"; return; }
+    res.items.forEach((c, i) => {
+      const row = el("div", "commit");
+      row.appendChild(el("span", "sha", c.sha));
+      const grow = el("div", "grow");
+      const subj = el("div", "subj");
+      subj.appendChild(el("span", "", c.subject));
+      grow.append(subj, el("div", "date", c.date + (i === 0 ? " · 最新" : "")));
+      row.appendChild(grow);
+      const btn = el("button", "btn small danger", i === 0 ? "回退这次修改" : "回退到此前");
+      btn.onclick = async () => {
+        if (!confirm("回退提交 " + c.sha + "？\n这会生成一个新的反向提交并推送。")) return;
+        btn.disabled = true;
+        const r = await api("/api/rollback", { method: "POST", body: JSON.stringify({ sha: c.sha }) });
+        btn.disabled = false;
+        if (r.ok) {
+          toast(r.message || "已回退", "ok");
+          dlg.close();
+          await reload();
+        } else {
+          toast(r.error || "回退失败", "err", r.log || "");
+        }
+      };
+      row.appendChild(btn);
+      body.appendChild(row);
+    });
+  }
+
+  async function reload() {
+    const res = await api("/api/content");
+    if (!res.ok) { toast("读取 content.json 失败：" + res.error, "err"); return; }
+    state.content = res.content;
+    state.formDirty = false;
+    const hash = (location.hash || "").replace("#", "");
+    if (hash && SECTIONS.some(x => x.id === hash)) state.section = hash;
+    renderNav();
+    renderPanel();
+    await refreshStatus();
+  }
+
+  /* ---------------- boot ---------------- */
+  document.getElementById("btnSave").onclick = () => save();
+  document.getElementById("btnPublish").onclick = publish;
+  document.getElementById("btnHistory").onclick = openHistory;
+  document.getElementById("closeHistory").onclick = () => document.getElementById("historyDlg").close();
+  document.getElementById("btnPreview").onclick = () => window.open("/?_=" + Date.now(), "_blank");
+
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+      e.preventDefault();
+      save();
+    }
+  });
+
+  window.addEventListener("beforeunload", e => {
+    if (state.formDirty) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  reload();
+})();
+</script>
+</body>
+</html>

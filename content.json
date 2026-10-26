@@ -1,0 +1,346 @@
+{
+  "site": {
+    "name": "Rongtao Chen",
+    "name_cjk": "陈荣滔",
+    "title": "Rongtao Chen · Affective Computing & Multimodal Reasoning",
+    "description": "Rongtao Chen — M.S. student at the School of Cyber Science and Engineering, Southeast University. Research on affective computing, EEG-based emotion recognition, cross-subject transfer and multimodal reasoning.",
+    "url": "https://seizeall.github.io/",
+    "email": "rongtao.chen@seu.edu.cn",
+    "scholar": "https://scholar.google.com/citations?user=KTdaZuUAAAAJ",
+    "github": "https://github.com/seizeall",
+    "university": "Southeast University",
+    "department": "School of Cyber Science and Engineering"
+  },
+  "hero": {
+    "eyebrow": "M.S. Student · Southeast University",
+    "lede": "I study how machines come to **feel** — teaching models to infer emotional and cognitive states from physiological signals, and to reason across modalities rather than fire off a single label.",
+    "location": "Nanjing, China",
+    "stats": [
+      {
+        "label": "Citations",
+        "value": 20
+      },
+      {
+        "label": "Publications",
+        "value": 8
+      },
+      {
+        "label": "h-index",
+        "value": 2
+      },
+      {
+        "label": "i10-index",
+        "value": 2
+      }
+    ]
+  },
+  "about": {
+    "kicker": "01 — About",
+    "heading": "A little context",
+    "paragraphs": [
+      "I am a master's student at the **School of Cyber Science and Engineering, Southeast University**. My work sits between **affective computing** and **multimodal learning**: getting a model to read the emotional and cognitive state of a person from signals that were never designed to be read.",
+      "Most of my published work is on **cross-subject and cross-dataset EEG emotion recognition**. The hard part is not fitting one person's brainwaves — it is making a model trained on a handful of subjects behave sensibly on someone it has never met, recorded on hardware it has never seen. I approach that with graph-based domain adaptation: align distributions across people and sessions, and let the electrode topology do some of the regularisation for you.",
+      "I am currently extending this line toward **multimodal reasoning**, where language, vision and physiological streams are used jointly to infer affect and intent instead of collapsing everything into one label."
+    ],
+    "glance": [
+      {
+        "key": "Position",
+        "value": "M.S. Student"
+      },
+      {
+        "key": "Affiliation",
+        "value": "Southeast University"
+      },
+      {
+        "key": "Department",
+        "value": "Cyber Science & Engineering"
+      },
+      {
+        "key": "Location",
+        "value": "Nanjing, China"
+      },
+      {
+        "key": "Focus",
+        "value": "Affective computing · Multimodal reasoning"
+      }
+    ],
+    "glance_link": {
+      "label": "GitHub profile",
+      "href": "https://github.com/seizeall"
+    }
+  },
+  "research": {
+    "kicker": "02 — Research",
+    "heading": "What I work on",
+    "sub": "Two directions I keep coming back to — reading affect from signals that were never designed to be read, and reasoning across modalities about why a state holds.",
+    "items": [
+      {
+        "icon": "graph",
+        "title": "Multimodal Reasoning",
+        "text": "Joint inference over language, vision and physiology. Rather than a single fused classifier, I am interested in models that reason about *why* a state holds and can be asked follow-up questions about it.",
+        "tags": [
+          "LLM reasoning",
+          "Fusion",
+          "Interpretability"
+        ],
+        "feature": true
+      },
+      {
+        "icon": "wave",
+        "title": "Affective Computing",
+        "text": "Estimating emotional and cognitive states from physiological signals — EEG first, with peripheral signals as a complement. The goal is a reading that is stable enough to trust outside the lab.",
+        "tags": [
+          "EEG",
+          "Emotion",
+          "Consciousness"
+        ],
+        "feature": true
+      }
+    ]
+  },
+  "news": {
+    "kicker": "03 — News",
+    "heading": "Recent updates",
+    "items": [
+      {
+        "when": "2026",
+        "text": "Two papers accepted to **IEEE Transactions on Affective Computing** — on multi-scale temporal modelling and cross-dataset graph alignment."
+      },
+      {
+        "when": "2026",
+        "text": "*MLDA-STG* and *EmoVAE* appear at the **Annual Meeting of the Cognitive Science Society**."
+      },
+      {
+        "when": "2026",
+        "text": "Paper on multi-dimensional feature fusion and multi-level domain adaptation accepted to **ICASSP 2026**."
+      },
+      {
+        "when": "2025",
+        "text": "*PR-DA* accepted to **IEEE BIBM 2025**; code released on GitHub."
+      },
+      {
+        "when": "2025",
+        "text": "Paper on progressive multi-domain adaptation published in **IEEE TNSRE** — with code."
+      }
+    ]
+  },
+  "publications": {
+    "kicker": "04 — Publications",
+    "heading": "Selected work",
+    "sub": "Full and up-to-date list on Google Scholar.",
+    "scholar": "https://scholar.google.com/citations?user=KTdaZuUAAAAJ",
+    "scholar_text": "Google Scholar",
+    "note": "My name is highlighted in the author lists.",
+    "items": [
+      {
+        "badge": "TNSRE",
+        "type": "journal",
+        "title": "A Progressive Multi-Domain Adaptation Network with Reinforced Self-Constructed Graphs for Cross-Subject EEG-Based Emotion and Consciousness Recognition",
+        "href": "https://ieeexplore.ieee.org/document/11142795",
+        "authors": "R. **Chen**, C. Xie, J. Zhang, Q. You, J. Pan",
+        "venue": "IEEE Transactions on Neural Systems and Rehabilitation Engineering",
+        "year": "2025",
+        "cited": 13,
+        "links": [
+          {
+            "label": "Paper",
+            "href": "https://ieeexplore.ieee.org/document/11142795"
+          },
+          {
+            "label": "Code",
+            "href": "https://github.com/seizeall/mycode"
+          },
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:d1gkVwhDpl0C"
+          }
+        ]
+      },
+      {
+        "badge": "TAFFC",
+        "type": "journal",
+        "title": "Multi-Scale Dynamic Temporal Network with Graph Matching Domain Adaptation for Cross-Subject EEG Emotion Recognition",
+        "href": "",
+        "authors": "R. **Chen**, Z. Hong, L. Li, Z. Huang, J. Li, J. Pan",
+        "venue": "IEEE Transactions on Affective Computing",
+        "year": "2026",
+        "cited": 4,
+        "links": [
+          {
+            "label": "Code",
+            "href": "https://github.com/seizeall/MDTN-GMDA"
+          },
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:u-x6o8ySG0sC"
+          }
+        ]
+      },
+      {
+        "badge": "TAFFC",
+        "type": "journal",
+        "title": "Golden-Style Graph Alignment for Cross-Dataset EEG Emotion Recognition",
+        "href": "",
+        "authors": "R. **Chen**, Z. Huang, J. Chen, X. Lin, J. Pan",
+        "venue": "IEEE Transactions on Affective Computing",
+        "year": "2026",
+        "cited": 1,
+        "links": [
+          {
+            "label": "Code",
+            "href": "https://github.com/seizeall/CAGA-SGA"
+          },
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:qjMakFHDy7sC"
+          }
+        ]
+      },
+      {
+        "badge": "ICASSP",
+        "type": "conference",
+        "title": "A Multi-Dimensional Feature Fusion and Multi-Level Domain Adaptation Network for Cross-Subject EEG Emotion Recognition",
+        "href": "",
+        "authors": "C. Xie, R. **Chen**, Z. Huang, J. Zhang, L. Qiu, J. Pan",
+        "venue": "IEEE ICASSP",
+        "year": "2026",
+        "cited": 1,
+        "links": [
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:2osOgNQ5qMEC"
+          }
+        ]
+      },
+      {
+        "badge": "BIBM",
+        "type": "conference",
+        "title": "PR-DA: Prototype Regularization Domain Adaptation for Cross-Subject EEG-Based Emotion Recognition",
+        "href": "",
+        "authors": "R. **Chen**, Z. Hong, Q. You, C. Xie, J. Zhang, J. Pan",
+        "venue": "IEEE International Conference on Bioinformatics and Biomedicine",
+        "year": "2025",
+        "cited": 1,
+        "links": [
+          {
+            "label": "Code",
+            "href": "https://github.com/seizeall/PR-DA"
+          },
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:u5HHmVD_uO8C"
+          }
+        ]
+      },
+      {
+        "badge": "BSPC",
+        "type": "journal",
+        "title": "HEAT: Hierarchical Emotion Adaptation with Progressive Thresholding for EEG Emotion and Consciousness Detection",
+        "href": "",
+        "authors": "Z. Hong, R. **Chen**, L. Li, J. Chen, W. Gao, J. Pan",
+        "venue": "Biomedical Signal Processing and Control",
+        "year": "2026",
+        "cited": 0,
+        "links": [
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:9yKSN-GCB0IC"
+          }
+        ]
+      },
+      {
+        "badge": "CogSci",
+        "type": "conference",
+        "title": "MLDA-STG: A Multi-Level Domain Adaptation Spatio-Temporal Graph Network for Cross-Subject EEG Fatigue Detection",
+        "href": "",
+        "authors": "J. Zhang, R. **Chen**, Z. Huang, C. Xie, J. Pan, L. Qiu",
+        "venue": "Annual Meeting of the Cognitive Science Society",
+        "year": "2026",
+        "cited": 0,
+        "links": [
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:roLk4NBRz8UC"
+          }
+        ]
+      },
+      {
+        "badge": "CogSci",
+        "type": "conference",
+        "title": "EmoVAE: Bridging Affective Neural Dynamics for Cross-Dataset Emotion Recognition",
+        "href": "",
+        "authors": "Z. Huang, R. **Chen**, X. Lin, J. Chen, J. Pan",
+        "venue": "Annual Meeting of the Cognitive Science Society",
+        "year": "2026",
+        "cited": 0,
+        "links": [
+          {
+            "label": "Scholar",
+            "href": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=KTdaZuUAAAAJ&citation_for_view=KTdaZuUAAAAJ:UeHWp8X0CEIC"
+          }
+        ]
+      }
+    ]
+  },
+  "code": {
+    "kicker": "05 — Code",
+    "heading": "Open source",
+    "sub": "Reproducible implementations, all on [GitHub](https://github.com/seizeall).",
+    "items": [
+      {
+        "name": "mycode",
+        "href": "https://github.com/seizeall/mycode",
+        "stars": 16,
+        "desc": "Official implementation of the progressive multi-domain adaptation network — TNSRE 2025.",
+        "lang": "Python",
+        "color": "#3572A5"
+      },
+      {
+        "name": "CAGA-SGA",
+        "href": "https://github.com/seizeall/CAGA-SGA",
+        "stars": 4,
+        "desc": "Cross-attention graph alignment with structured graph adaptation, for IEEE TAFFC.",
+        "lang": "Python",
+        "color": "#3572A5"
+      },
+      {
+        "name": "MDTN-GMDA",
+        "href": "https://github.com/seizeall/MDTN-GMDA",
+        "stars": 3,
+        "desc": "Multi-scale dynamic temporal network with graph matching domain adaptation, for IEEE TAFFC.",
+        "lang": "Python",
+        "color": "#3572A5"
+      },
+      {
+        "name": "PR-DA",
+        "href": "https://github.com/seizeall/PR-DA",
+        "stars": 5,
+        "desc": "Prototype regularisation for cross-subject EEG emotion recognition — IEEE BIBM 2025.",
+        "lang": "Python",
+        "color": "#3572A5"
+      }
+    ]
+  },
+  "contact": {
+    "kicker": "06 — Contact",
+    "heading": "Get in touch",
+    "sub": "Happy to talk about EEG, affective computing, or a collaboration — email is the most reliable way to reach me.",
+    "links": [
+      {
+        "name": "Google Scholar",
+        "handle": "KTdaZuUAAAAJ",
+        "href": "https://scholar.google.com/citations?user=KTdaZuUAAAAJ"
+      },
+      {
+        "name": "GitHub",
+        "handle": "@seizeall",
+        "href": "https://github.com/seizeall"
+      },
+      {
+        "name": "School of Cyber Science & Engineering",
+        "handle": "Southeast University",
+        "href": "https://cyber.seu.edu.cn/"
+      }
+    ]
+  }
+}
