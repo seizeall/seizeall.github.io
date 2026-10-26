@@ -1,4 +1,4 @@
-﻿.DS_Store
+.DS_Store
 Thumbs.db
 desktop.ini
 .tmp/
@@ -12,3 +12,9 @@ preview*.png
 local/
 __pycache__/
 *.pyc
+
+# Built desktop app (regenerate with tools/build-exe.cmd)
+HomepageEditor.exe
+build/
+dist/
+*.spec

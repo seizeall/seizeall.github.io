@@ -25,22 +25,37 @@ import mimetypes
 import os
 import re
 import secrets
+import socket
 import subprocess
 import sys
 import threading
 import time
 import traceback
 import urllib.parse
+import urllib.request
 import webbrowser
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+IS_FROZEN = bool(getattr(sys, "frozen", False))
+BUNDLE = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+
+if IS_FROZEN:
+    # HomepageEditor.exe lives in the project folder; everything external
+    # (content.json, assets, .git) is resolved next to the exe.
+    ROOT = Path(sys.executable).resolve().parent
+    TOOLS = ROOT / "tools" if (ROOT / "tools").is_dir() else BUNDLE / "tools"
+else:
+    ROOT = Path(__file__).resolve().parent.parent
+    TOOLS = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(TOOLS))
 import build  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
-ADMIN_HTML = Path(__file__).resolve().parent / "admin.html"
+ADMIN_HTML = TOOLS / "admin.html"
+if not ADMIN_HTML.exists():
+    ADMIN_HTML = BUNDLE / "tools" / "admin.html"
 CONTENT = ROOT / "content.json"
 
 TOKEN = secrets.token_urlsafe(18)
@@ -53,6 +68,20 @@ MAX_UPLOAD = 60 * 1024 * 1024  # 60 MB
 # --------------------------------------------------------------------------
 # helpers
 # --------------------------------------------------------------------------
+def port_in_use(port: int) -> bool:
+    """True when something is already listening on 127.0.0.1:port.
+
+    On Windows SO_REUSEADDR lets a second process bind the same port, so a
+    plain bind() cannot be trusted to detect a running editor.
+    """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(0.4)
+    try:
+        return sock.connect_ex(("127.0.0.1", port)) == 0
+    finally:
+        sock.close()
+
+
 def log(message: str) -> None:
     print("[%s] %s" % (datetime.now().strftime("%H:%M:%S"), message), flush=True)
 
@@ -341,6 +370,12 @@ class Handler(BaseHTTPRequestHandler):
                 size = rebuild()
                 return self._json({"ok": True, "bytes": size})
 
+            if path == "/api/shutdown":
+                self._json({"ok": True})
+                threading.Thread(target=self.server.shutdown, daemon=True).start()
+                log("shutdown requested")
+                return None
+
             return self._json({"ok": False, "error": "unknown endpoint"}, 404)
 
         except Exception as exc:  # noqa: BLE001
@@ -355,7 +390,32 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     url = "http://127.0.0.1:%d/admin?t=%s" % (args.port, TOKEN)
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+
+    # Already running? Just bring the existing editor forward instead of
+    # starting a second server on the same port.
+    if port_in_use(args.port):
+        existing = "http://127.0.0.1:%d/admin" % args.port
+        if not args.no_browser:
+            try:
+                webbrowser.open(existing)
+            except Exception:  # noqa: BLE001
+                pass
+        print("editor already running at %s" % existing)
+        return 0
+
+    try:
+        server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    except OSError:
+        existing = "http://127.0.0.1:%d/admin" % args.port
+        try:
+            with urllib.request.urlopen(existing, timeout=3):
+                pass
+            if not args.no_browser:
+                webbrowser.open(existing)
+            print("editor already running at %s" % existing)
+            return 0
+        except Exception:
+            raise
 
     print()
     print("  个人主页 · 本地编辑器")
@@ -366,8 +426,24 @@ def main(argv=None) -> int:
     print()
     log("serving %s" % ROOT)
 
+    def open_editor() -> None:
+        try:
+            if webbrowser.open(url):
+                return
+        except Exception:  # noqa: BLE001
+            pass
+        if IS_FROZEN:
+            import ctypes
+
+            ctypes.windll.user32.MessageBoxW(
+                None,
+                "服务已经启动，但没能自动打开浏览器。\n请手动访问：\n\n%s" % url,
+                "主页编辑器",
+                0x40,
+            )
+
     if not args.no_browser:
-        threading.Timer(0.6, lambda: webbrowser.open(url)).start()
+        threading.Timer(0.6, open_editor).start()
 
     try:
         server.serve_forever()
@@ -380,4 +456,18 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        if getattr(sys, "frozen", False):
+            import ctypes
+
+            ctypes.windll.user32.MessageBoxW(
+                None,
+                "%s\n\n请确认 HomepageEditor.exe 放在项目根目录（与 content.json 同级）。" % exc,
+                "主页编辑器启动失败",
+                0x10,
+            )
+        raise

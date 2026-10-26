@@ -16,8 +16,16 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+IS_FROZEN = bool(getattr(sys, "frozen", False))
+BUNDLE = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+
+# Frozen (HomepageEditor.exe): the project root is the folder holding the exe.
+ROOT = Path(sys.executable).resolve().parent if IS_FROZEN else Path(__file__).resolve().parent.parent
+
 TEMPLATE = ROOT / "templates" / "index.template.html"
+if not TEMPLATE.exists() and (BUNDLE / "templates" / "index.template.html").exists():
+    TEMPLATE = BUNDLE / "templates" / "index.template.html"
+
 CONTENT = ROOT / "content.json"
 OUTPUT = ROOT / "index.html"
 

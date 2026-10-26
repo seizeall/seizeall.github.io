@@ -197,6 +197,7 @@
     <button class="btn" id="btnSave" title="写入 content.json 并重新生成 index.html">保存并生成</button>
     <button class="btn primary" id="btnPublish" title="保存 + git commit + git push">发布到 GitHub</button>
     <button class="btn ghost" id="btnHistory" title="查看提交历史并回退">历史</button>
+    <button class="btn ghost" id="btnQuit" title="停止本地服务并退出">退出</button>
   </div>
 </header>
 
@@ -782,6 +783,15 @@
   document.getElementById("btnHistory").onclick = openHistory;
   document.getElementById("closeHistory").onclick = () => document.getElementById("historyDlg").close();
   document.getElementById("btnPreview").onclick = () => window.open("/?_=" + Date.now(), "_blank");
+
+  document.getElementById("btnQuit").onclick = async () => {
+    if (!confirm("退出编辑器？本地服务会停止，这个页面就不能用了。\n（已经发布的内容不受影响。）")) return;
+    try { await api("/api/shutdown", { method: "POST", body: "{}" }); } catch (e) { /* server may drop the socket */ }
+    document.body.innerHTML =
+      '<div style="padding:80px 24px;text-align:center;font:16px/1.7 -apple-system,Segoe UI,PingFang SC,sans-serif;color:#3c4759">' +
+      '<div style="font-size:22px;font-weight:650;color:#0d1424;margin-bottom:8px">编辑器已退出</div>' +
+      '可以关闭这个标签页了。下次双击桌面图标即可重新打开。</div>';
+  };
 
   document.addEventListener("keydown", e => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {

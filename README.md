@@ -7,16 +7,16 @@
 
 ---
 
-## 1. 日常怎么用（推荐）
+## 1. 日常怎么用
 
-双击 **`start-editor.cmd`**，或者：
+双击桌面上的 **「主页编辑器」** 图标（`E:\myself\HomepageEditor.exe`，7 MB，自带 Python 运行时），
+浏览器会自动打开 `http://127.0.0.1:8099/admin`。
 
-```powershell
-cd E:\myself
-python tools\admin.py
-```
+> 没有桌面图标时：双击项目里的 `start-editor.cmd`，或者 `python tools\admin.py`。
+> 重复双击不会开第二个实例，只会把已经开着的页面再打开一次。
+> 用完点右上角 **退出**（或直接关掉进程），别把服务一直挂在后台。
 
-浏览器会自动打开 `http://127.0.0.1:8099/admin`。左边选栏目，右边改内容：
+左边选栏目，右边改内容：
 
 | 按钮 | 作用 |
 | --- | --- |
@@ -55,8 +55,10 @@ python tools\admin.py
 │   ├── css/style.css
 │   ├── js/main.js
 │   ├── img/portrait.jpg | favicon.svg
+│   ├── icon.ico | icon.png     ← exe 和桌面快捷方式的图标
 │   └── files/papers/           ← 上传的 PDF 落在这里
-├── start-editor.cmd            ← 双击启动编辑器
+├── HomepageEditor.exe          ← 桌面图标指向的独立程序（7 MB，可用 tools/build-exe.cmd 重新打包）
+├── start-editor.cmd            ← 用 Python 启动编辑器的备用方式
 ├── robots.txt / sitemap.xml
 └── .nojekyll
 ```
@@ -102,3 +104,29 @@ git add -A; git commit -m "update"; git push
 - SEO：`Person` 结构化数据、Open Graph、`robots.txt`、`sitemap.xml`
 
 内容数据来源：Google Scholar 公开主页、GitHub 公开 API（2026-10-27 抓取）。
+
+## 8. 重新打包 exe
+
+改过 `tools/admin.py` / `tools/admin.html` 之后，重新生成 exe：
+
+```
+双击 tools\build-exe.cmd
+```
+
+等价的命令（需要 `pip install pyinstaller`）：
+
+```powershell
+cd E:\myself
+python -m PyInstaller --noconfirm --clean --onefile --noconsole `
+  --name HomepageEditor --icon "assets\icon.ico" --hidden-import build `
+  --add-data "%CD%\tools\admin.html;tools" `
+  --add-data "%CD%\templates\index.template.html;templates" `
+  --distpath "%CD%" --workpath "%CD%\build" --specpath "%CD%\build" `
+  "tools\admin.py"
+```
+
+说明：
+
+- exe 运行时把**自己所在目录**当成项目根目录，所以必须放在 `content.json` 旁边。
+- 页面文件优先读磁盘上的 `tools/admin.html`、`tools/build.py`，读不到才用 exe 里打包的副本——所以改了 Python 代码要重新打包，只改 `content.json` 不用。
+- `HomepageEditor.exe`、`build/` 不进 git（见 `.gitignore`），换了电脑重新打包一次即可。
